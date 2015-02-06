@@ -1,0 +1,11 @@
+[package]
+name = "Euler solution 0001"
+version = "1.0.0"
+authors = ["Zachary Bush <zabu.other@gmail.com" ]
+
+[dependencies]
+getopts = "*"
+
+[[bin]]
+name = "0001"
+path = "src/main.rs"
