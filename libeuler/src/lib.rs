@@ -40,8 +40,14 @@ macro_rules! solutions {
                     $content
                 };
             )+
+
+            let valid_solutions = vec![$(stringify!($name)),*];
+            let solutions: Vec<&String> = matches.free.iter()
+                .filter(|&m| valid_solutions.contains(&m.as_slice()))
+                .collect();
+
             $(
-                if matches.free.len() <= 0 || matches.free.contains(&stringify!($name).to_string()) {
+                if solutions.len() <= 0 || solutions.contains(&&stringify!($name).to_string()) {
                     println!("Running: {}", stringify!($name));
                     println!("Result: {:?}", $name());
                     println!("");
