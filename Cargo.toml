@@ -2,6 +2,7 @@
 name = "Euler solutions"
 version = "1.0.0"
 build = "src/generate_main.rs"
+include = ["**/*.rs"]
 
 [dependencies.libeuler]
 path = "libeuler"
