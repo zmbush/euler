@@ -1,43 +1,4 @@
-extern crate getopts;
-use getopts::Options;
-use std::os;
-
-macro_rules! solutions {
-    (inputs: ($($n:ident : $ty:ty = $def:expr),*) $(sol $name:ident $content:block)+) => (
-        {
-            let args: Vec<String> = os::args();
-            let mut opts = Options::new();
-
-            $(
-                opts.optopt("", stringify!($n), "algorithm argument", "VALUE");
-            )*
-
-            let matches = match opts.parse(args.tail()) {
-                Ok(m) => m,
-                Err(f) => { panic!(f.to_string()) }
-            };
-
-            $(
-                let $n: $ty = match matches.opt_str(stringify!($n)) {
-                    Some(s) => { s.parse().unwrap_or($def) },
-                    None => $def
-                };
-            )*
-
-            $(
-                let $name = || {
-                    $content
-                };
-            )+
-            $(
-                println!("Running: {}", stringify!($name));
-                println!("Result: {:?}", $name());
-                println!("");
-            )+
-        }
-    )
-}
-
+#[macro_use] extern crate libeuler;
 
 fn main() {
     solutions!{

@@ -3,8 +3,8 @@ name = "Euler solution 0001"
 version = "1.0.0"
 authors = ["Zachary Bush <zabu.other@gmail.com" ]
 
-[dependencies]
-getopts = "*"
+[dependencies.libeuler]
+path = "../libeuler"
 
 [[bin]]
 name = "0001"

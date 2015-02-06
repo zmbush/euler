@@ -1,0 +1,8 @@
+[package]
+
+name = "libeuler"
+version = "0.0.1"
+authors = ["Zachary Bush <zachary.bush@meraki.net>"]
+
+[dependencies]
+getopts = "*"
