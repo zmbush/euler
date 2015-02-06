@@ -20,9 +20,5 @@ fn main() {
 
             sum
         }
-
-        sol broken {
-            -5
-        }
     };
 }
