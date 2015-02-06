@@ -30,6 +30,8 @@ fn main() {
         }
     }
 
+    names.sort();
+
     for name in names.iter() {
         writeln!(f, "mod {name} {{
             pub fn run() {{ self::main(); }}
