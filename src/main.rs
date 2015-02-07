@@ -1,7 +1,10 @@
 #[macro_use] extern crate libeuler;
+use std::env;
 
 include!(concat!(env!("OUT_DIR"), "/run.rs"));
 
 fn main() {
-    run();
+    let mut args = env::args();
+    args.next();
+    run(args);
 }

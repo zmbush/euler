@@ -37,7 +37,7 @@ fn main() {
     }
 
     writeln!(f, "
-        fn run(args: Args) {{
+        fn run(mut args: Args) {{
             let project = match args.next() {{
               Some(p) => p.into_string().unwrap(),
               None => \"\".to_string()
