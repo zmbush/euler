@@ -1,8 +1,7 @@
 [package]
 name = "Euler solutions"
 version = "1.0.0"
-build = "src/generate_main.rs"
-include = ["**/*.rs"]
+build = "src/generate_run.rs"
 
 [dependencies.libeuler]
 path = "libeuler"

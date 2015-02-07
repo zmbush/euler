@@ -1,5 +1,3 @@
 target
 *.swo
 *.swp
-
-/src/main.rs
