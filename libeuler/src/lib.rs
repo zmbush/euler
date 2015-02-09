@@ -108,13 +108,15 @@ pub struct SieveOfAtkinIterator {
 impl SieveOfAtkinIterator {
     pub fn new(limit: u64) -> SieveOfAtkinIterator {
         let sqroot = (limit as f64).sqrt() as u64 + 1;
-        let mut is_prime: HashMap<u64, bool> = HashMap::new();
+
+        let mut is_prime = Vec::new();
+        is_prime.resize(limit as usize, false);
+
         let mut primes = vec![2u64, 3];
 
         {
             let mut invert = |n: u64| {
-                let v = is_prime.remove(&n).unwrap_or(false);
-                is_prime.insert(n, !v);
+                is_prime[n as usize] = !is_prime[n as usize];
             };
 
             for x in 0..sqroot {
@@ -143,10 +145,9 @@ impl SieveOfAtkinIterator {
         }
 
         for x in range_step(5, limit, 2) {
-            if (is_prime.get(&x).unwrap_or(&false) == &true) {
+            if (is_prime[x as usize]) {
                 for y in range_step(x*x, limit, x) {
-                    is_prime.remove(&y);
-                    is_prime.insert(y, false);
+                    is_prime[y as usize] = false;
                 }
 
                 primes.push(x as u64);
