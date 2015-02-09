@@ -157,6 +157,24 @@ impl SieveOfAtkin {
             primes: primes
         }
     }
+
+    pub fn factorize(&self, number: u64) -> Vec<u64> {
+        let mut retval = Vec::new();
+        let mut factorize = number;
+
+        for &p in self.primes.iter() {
+            while factorize % p == 0 {
+                retval.push(p);
+                factorize /= p;
+            }
+
+            if factorize == 1 {
+                return retval;
+            }
+        }
+
+        unreachable!();
+    }
 }
 
 pub struct SieveOfAtkinIterator {

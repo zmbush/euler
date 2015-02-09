@@ -1,11 +1,13 @@
 #[macro_use] extern crate libeuler;
+use libeuler::SieveOfAtkin;
+use std::num::Float;
 
 /// The prime factors of 13195 are 5, 7, 13 and 29.
 ///
 /// What is the largest prime factor of the number 600851475143?
 fn main() {
     solutions!{
-        inputs: (number: i64 = 600851475143)
+        inputs: (number: u64 = 600851475143)
 
         sol naive {
             let mut factored = number.clone();
@@ -20,6 +22,11 @@ fn main() {
             }
 
             factored
+        }
+
+        sol sieve {
+            SieveOfAtkin::new((number as f64).sqrt() as u64)
+                .factorize(number).pop()
         }
     };
 }
