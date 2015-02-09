@@ -100,13 +100,12 @@ impl Iterator for PrimeIterator {
     }
 }
 
-pub struct SieveOfAtkinIterator {
-    ix: usize,
-    generated: Vec<u64>
+pub struct SieveOfAtkin {
+    primes: Vec<u64>
 }
 
-impl SieveOfAtkinIterator {
-    pub fn new(limit: u64) -> SieveOfAtkinIterator {
+impl SieveOfAtkin {
+    pub fn new(limit: u64) -> SieveOfAtkin {
         let sqroot = (limit as f64).sqrt() as u64 + 1;
 
         let mut is_prime = Vec::new();
@@ -154,9 +153,22 @@ impl SieveOfAtkinIterator {
             }
         }
 
+        SieveOfAtkin {
+            primes: primes
+        }
+    }
+}
+
+pub struct SieveOfAtkinIterator {
+    ix: usize,
+    sieve: SieveOfAtkin
+}
+
+impl SieveOfAtkinIterator {
+    pub fn new(limit: u64) -> SieveOfAtkinIterator {
         SieveOfAtkinIterator {
             ix: 0,
-            generated: primes
+            sieve: SieveOfAtkin::new(limit)
         }
     }
 }
@@ -166,8 +178,8 @@ impl Iterator for SieveOfAtkinIterator {
 
     fn next(&mut self) -> Option<u64> {
         self.ix += 1;
-        if self.ix <= self.generated.len() {
-            let val = self.generated[self.ix - 1];
+        if self.ix <= self.sieve.primes.len() {
+            let val = self.sieve.primes[self.ix - 1];
             Some(val)
         } else {
             None
