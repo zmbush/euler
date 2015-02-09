@@ -1,5 +1,9 @@
 extern crate getopts;
 pub use getopts::Options;
+use std::collections::HashMap;
+use std::num::Float;
+use std::num::Int;
+use std::iter::range_step;
 
 #[macro_export]
 macro_rules! solutions {
@@ -55,4 +59,117 @@ macro_rules! solutions {
             )+
         }
     )
+}
+
+pub struct PrimeIterator {
+    current: i64,
+    previous_primes: Vec<i64>
+}
+
+impl PrimeIterator {
+    pub fn new() -> PrimeIterator {
+        PrimeIterator {
+            current: 1,
+            previous_primes: Vec::new()
+        }
+    }
+
+    fn is_prime(&self, v: i64) -> bool {
+        for &pp in self.previous_primes.iter() {
+            if v % pp == 0 {
+                return false;
+            }
+        }
+
+        true
+    }
+}
+
+impl Iterator for PrimeIterator {
+    type Item = i64;
+
+    fn next(&mut self) -> Option<i64> {
+        loop {
+            self.current += 1;
+
+            if self.is_prime(self.current) {
+                self.previous_primes.push(self.current);
+                return Some(self.current);
+            }
+        }
+    }
+}
+
+pub struct SieveOfAtkinIterator {
+    ix: usize,
+    generated: Vec<u64>
+}
+
+impl SieveOfAtkinIterator {
+    pub fn new(limit: u64) -> SieveOfAtkinIterator {
+        let sqroot = (limit as f64).sqrt() as u64 + 1;
+        let mut is_prime: HashMap<u64, bool> = HashMap::new();
+        let mut primes = vec![2u64, 3];
+
+        {
+            let mut invert = |n: u64| {
+                let v = is_prime.remove(&n).unwrap_or(false);
+                is_prime.insert(n, !v);
+            };
+
+            for x in 0..sqroot {
+                let xp2 = x*x;
+                for y in 0..sqroot {
+                    let yp2 = y*y;
+
+                    let n = 3*xp2 + yp2;
+                    if n <= limit && n % 12 == 7 {
+                        invert(n);
+                    }
+
+                    let n = n + xp2;
+                    if n <= limit && (n % 12 == 1 || n % 12 == 5) {
+                        invert(n);
+                    }
+
+                    if x > y {
+                        let n = n - (xp2 + 2*yp2);
+                        if n <= limit && n % 12 == 11 {
+                            invert(n);
+                        }
+                    }
+                }
+            }
+        }
+
+        for x in range_step(5, limit, 2) {
+            if (is_prime.get(&x).unwrap_or(&false) == &true) {
+                for y in range_step(x*x, limit, x) {
+                    is_prime.remove(&y);
+                    is_prime.insert(y, false);
+                }
+
+                primes.push(x as u64);
+            }
+        }
+
+        SieveOfAtkinIterator {
+            ix: 0,
+            generated: primes
+        }
+    }
+}
+
+impl Iterator for SieveOfAtkinIterator {
+    type Item = u64;
+
+    fn next(&mut self) -> Option<u64> {
+        self.ix += 1;
+        if self.ix <= self.generated.len() {
+            let val = self.generated[self.ix - 1];
+            Some(val)
+        } else {
+            None
+        }
+    }
 }
