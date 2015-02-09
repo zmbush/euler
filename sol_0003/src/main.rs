@@ -25,8 +25,11 @@ fn main() {
         }
 
         sol sieve {
-            SieveOfAtkin::new((number as f64).sqrt() as u64)
-                .factorize(number).pop()
+            let mut factors = SieveOfAtkin::new((number as f64).sqrt() as u64)
+                .factorize(number);
+
+            println!("factors: {:?}", factors);
+            factors.pop()
         }
     };
 }
