@@ -4,9 +4,6 @@ use std::iter::AdditiveIterator;
 use std::iter::MultiplicativeIterator;
 use libeuler::SieveOfAtkinIterator;
 
-
-
-
 /// In the 20×20 grid below, four numbers along a diagonal line have been marked in red.
 ///
 ///            08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
@@ -34,6 +31,16 @@ use libeuler::SieveOfAtkinIterator;
 ///
 /// What is the greatest product of four adjacent numbers in the same direction (up, down, left,
 /// right, or diagonally) in the 20×20 grid?
+
+enum GridDirection {
+    Right,
+    Down,
+    DiagonalRight,
+    DiagonalLeft
+}
+use self::GridDirection::*;
+
+
 fn main() {
     let grid = [
         [ 08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50, 77, 91, 08 ],
@@ -58,16 +65,8 @@ fn main() {
         [ 01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 01, 89, 19, 67, 48 ],
     ];
 
-    enum GridIterDirection {
-        Right,
-        Down,
-        DiagonalRight,
-        DiagonalLeft
-    }
-
-
     struct GridIter {
-        direction: Option<GridIterDirection>,
+        direction: Option<GridDirection>,
         x: usize,
         y: usize,
         grid: [[i32; 20]; 20]
@@ -76,13 +75,14 @@ fn main() {
     impl GridIter {
         fn new(grid: [[i32; 20]; 20]) -> GridIter {
             GridIter {
-                direction: Some(GridIterDirection::Right),
+                direction: Some(Right),
                 x: 0,
                 y: 0,
                 grid: grid
             }
         }
     }
+
     impl Iterator for GridIter {
         type Item = Vec<i32>;
 
@@ -91,31 +91,22 @@ fn main() {
                 return None;
             }
 
-            println!("({}, {}) {}", self.x, self.y, match self.direction {
-                Some(GridIterDirection::Right) => "Right",
-                Some(GridIterDirection::DiagonalRight) => "DiagonalRight",
-                Some(GridIterDirection::DiagonalLeft) => "DiagonalLeft",
-                Some(GridIterDirection::Down) => "Down",
-                None => unreachable!()
-            });
-
             let mut retval = Vec::new();
             for i in 0..4 {
-                retval.push(match self.direction {
-                    Some(GridIterDirection::Right) => self.grid[self.y][self.x + i],
-                    Some(GridIterDirection::DiagonalRight) => self.grid[self.y + i][self.x + i],
-                    Some(GridIterDirection::DiagonalLeft) => self.grid[self.y + i][self.x - i],
-                    Some(GridIterDirection::Down) => self.grid[self.y + i][self.x],
-                    None => unreachable!()
+                retval.push(match *self.direction.as_ref().unwrap() {
+                    Right => self.grid[self.y][self.x + i],
+                    DiagonalRight => self.grid[self.y + i][self.x + i],
+                    DiagonalLeft => self.grid[self.y + i][self.x - i],
+                    Down => self.grid[self.y + i][self.x],
                 });
             }
 
             loop {
-                self.direction = match self.direction {
-                    Some(GridIterDirection::Right) => Some(GridIterDirection::DiagonalLeft),
-                    Some(GridIterDirection::DiagonalLeft) => Some(GridIterDirection::DiagonalRight),
-                    Some(GridIterDirection::DiagonalRight) => Some(GridIterDirection::Down),
-                    Some(GridIterDirection::Down) => {
+                self.direction = match *self.direction.as_ref().unwrap() {
+                    Right => Some(DiagonalLeft),
+                    DiagonalLeft => Some(DiagonalRight),
+                    DiagonalRight => Some(Down),
+                    Down => {
                         self.x += 1;
                         if self.x >= self.grid[0].len() {
                             self.x = 0;
@@ -123,32 +114,31 @@ fn main() {
                             if self.y >= self.grid.len() {
                                 None
                             } else {
-                                Some(GridIterDirection::Right)
+                                Some(Right)
                             }
                         } else {
-                            Some(GridIterDirection::Right)
+                            Some(Right)
                         }
                     },
-                    None => unreachable!()
                 };
 
                 match self.direction {
-                    Some(GridIterDirection::Right) => {
+                    Some(Right) => {
                         if self.x + 3 < self.grid[0].len() {
                             break;
                         }
                     },
-                    Some(GridIterDirection::DiagonalRight) => {
+                    Some(DiagonalRight) => {
                         if self.x + 3 < self.grid[0].len() && self.y + 3 < self.grid.len() {
                             break;
                         }
                     },
-                    Some(GridIterDirection::DiagonalLeft) => {
+                    Some(DiagonalLeft) => {
                         if (self.x as isize)- 3 >= 0 && self.y + 3 < self.grid.len() {
                             break;
                         }
                     },
-                    Some(GridIterDirection::Down) => {
+                    Some(Down) => {
                         if self.y + 3 < self.grid.len() {
                             break;
                         }
@@ -165,11 +155,7 @@ fn main() {
         inputs: (ceiling: u64 = 2_000_000)
 
         sol naive {
-            GridIter::new(grid).map(|v| {
-                let ret = v.iter().map(|&x| x).product();
-                println!("getting product of {:?} -> {}", v, ret);
-                ret
-            }).max()
+            GridIter::new(grid).map(|v| v.iter().fold(1, |a, &x| a * x)).max()
         }
     };
 }
