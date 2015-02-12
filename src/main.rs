@@ -1,4 +1,5 @@
 #[macro_use] extern crate libeuler;
+extern crate num;
 use std::env;
 use std::ffi::OsString;
 

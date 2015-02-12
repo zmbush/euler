@@ -3,6 +3,7 @@ name = "Euler solutions"
 version = "1.0.0"
 dependencies = [
  "libeuler 0.0.1",
+ "num 0.1.12 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -23,5 +24,18 @@ dependencies = [
 [[package]]
 name = "log"
 version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "num"
+version = "0.1.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "rustc-serialize 0.2.12 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "rustc-serialize"
+version = "0.2.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 

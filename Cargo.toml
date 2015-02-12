@@ -6,6 +6,9 @@ build = "src/generate_run.rs"
 [dependencies.libeuler]
 path = "libeuler"
 
+[dependencies]
+num = "*"
+
 [[bin]]
 name = "euler"
 path = "src/main.rs"
