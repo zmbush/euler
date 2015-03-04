@@ -4,6 +4,7 @@ use std::collections::HashMap;
 use std::num::Float;
 use std::num::Int;
 use std::iter::range_step;
+use std::collections::HashSet;
 
 #[macro_export]
 macro_rules! solutions {
@@ -101,7 +102,8 @@ impl Iterator for PrimeIterator {
 }
 
 pub struct SieveOfAtkin {
-    primes: Vec<u64>
+    primes: Vec<u64>,
+    prime_set: HashSet<u64>
 }
 
 impl SieveOfAtkin {
@@ -110,8 +112,6 @@ impl SieveOfAtkin {
 
         let mut is_prime = Vec::new();
         is_prime.resize(limit as usize, false);
-
-        let mut primes = vec![2u64, 3];
 
         {
             let mut invert = |n: u64| {
@@ -143,6 +143,11 @@ impl SieveOfAtkin {
             }
         }
 
+        let mut primes = vec![2u64, 3];
+        let mut prime_set = HashSet::new();
+        prime_set.insert(2);
+        prime_set.insert(3);
+
         for x in range_step(5, limit, 2) {
             if (is_prime[x as usize]) {
                 for y in range_step(x*x, limit, x) {
@@ -150,17 +155,21 @@ impl SieveOfAtkin {
                 }
 
                 primes.push(x as u64);
+                prime_set.insert(x as u64);
             }
         }
 
         SieveOfAtkin {
-            primes: primes
+            primes: primes,
+            prime_set: prime_set
         }
     }
 
     pub fn factorize(&self, number: u64) -> Vec<u64> {
         let mut retval = Vec::new();
         let mut factorize = number;
+
+        if number <= 0 { return retval; }
 
         for &p in self.primes.iter() {
             while factorize % p == 0 {
@@ -174,6 +183,10 @@ impl SieveOfAtkin {
         }
 
         unreachable!();
+    }
+
+    pub fn is_prime(&self, number: u64) -> bool {
+        self.prime_set.contains(&number)
     }
 }
 
