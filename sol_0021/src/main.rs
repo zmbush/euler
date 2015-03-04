@@ -24,6 +24,7 @@ fn main() {
 
         sol naive {
             let sieve = SieveOfAtkin::new(2_000_000);
+            // Algorithm found here http://mathschallenge.net/library/number/sum_of_divisors
             let d = |n: u64| {
                 let factors = sieve.factorize(n);
                 let groups = factors.iter().fold(HashMap::new(), |mut m, &v| {
@@ -49,9 +50,9 @@ fn main() {
             let mut sum = 0;
             for a in 1..max_number {
                 let b = d(a);
-                if d(b) == a && a != b {
+                if b > a && d(b) == a {
                     println!("d({a}) = {b}; d({b}) = {a}", a = a, b = b);
-                    sum += a;
+                    sum += a + b;
                 }
             }
 
