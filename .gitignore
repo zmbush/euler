@@ -1,3 +1,4 @@
 target
 *.swo
 *.swp
+Cargo.toml

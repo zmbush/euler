@@ -1,16 +1,20 @@
+#![feature(
+    collections,
+    step_by
+)]
+
 extern crate getopts;
 pub use getopts::Options;
 use std::collections::HashMap;
 use std::num::Float;
 use std::num::Int;
-use std::iter::range_step;
 use std::collections::HashSet;
 
 #[macro_export]
 macro_rules! solutions {
     (inputs: ($($n:ident : $ty:ty = $def:expr),*) $(sol $name:ident $content:block)+) => (
         {
-            let args: Vec<String> = ::std::os::args();
+            let args: Vec<String> = ::std::env::args().collect();
             let mut opts = $crate::Options::new();
 
             $(
@@ -20,10 +24,10 @@ macro_rules! solutions {
 
             let help = || {
                 let brief = format!("Usage: {} [options] [versions] \nVersions: {:?}", &args[0], [$(stringify!($name)),+]);
-                print!("{}", opts.usage(brief.as_slice()));
+                print!("{}", opts.usage(&brief));
             };
 
-            let matches = match opts.parse(args.tail()) {
+            let matches = match opts.parse(&args[1..]) {
                 Ok(m) => m,
                 Err(_) => { help(); return; }
             };
@@ -47,12 +51,17 @@ macro_rules! solutions {
             )+
 
             let valid_solutions = vec![$(stringify!($name)),*];
-            let solutions: Vec<&String> = matches.free.iter()
-                .filter(|&m| valid_solutions.contains(&m.as_slice()))
-                .collect();
+            let solutions: Vec<String> = if matches.free.len() > 0 {
+                matches.free.iter()
+                .filter(|&m| valid_solutions.contains(&m.as_ref()))
+                .map(|ref a| a.clone().to_string())
+                .collect()
+            } else {
+                valid_solutions.iter().map(|&a| a.to_string()).collect()
+            };
 
             $(
-                if solutions.len() <= 0 || solutions.contains(&&stringify!($name).to_string()) {
+                if solutions.contains(&stringify!($name).to_string()) {
                     println!("Running: {}", stringify!($name));
                     println!("Result: {:?}", $name());
                     println!("");
@@ -148,9 +157,9 @@ impl SieveOfAtkin {
         prime_set.insert(2);
         prime_set.insert(3);
 
-        for x in range_step(5, limit, 2) {
+        for x in (5..limit).step_by(2) {
             if (is_prime[x as usize]) {
-                for y in range_step(x*x, limit, x) {
+                for y in (x*x..limit).step_by(x) {
                     is_prime[y as usize] = false;
                 }
 

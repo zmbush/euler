@@ -1,0 +1,27 @@
+#!/bin/bash
+
+echo "# Do not modify this file. It was generated from Cargo.toml.in" > Cargo.toml
+cat Cargo.toml.in >> Cargo.toml
+
+for f in sol_*; do
+  cat << EOF >> Cargo.toml
+[[bin]]
+name = "$f"
+path = "$f/src/main.rs"
+
+EOF
+done
+
+command=$1
+shift
+if [ "$command" = "run" ]; then
+  if [ "$1" -gt "0" ] 2> /dev/null; then
+    solution=$(printf "%04d" $1)
+    shift
+    cargo run --bin sol_$solution -- $@
+  else
+    for f in sol_*; do
+      cargo run --bin $f -- $@
+    done
+  fi
+fi
