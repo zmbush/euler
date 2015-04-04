@@ -1,5 +1,5 @@
+#![feature(core, collections)]
 #[macro_use] extern crate libeuler;
-use std::num::Int;
 use std::iter::MultiplicativeIterator;
 
 /// 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
@@ -15,7 +15,7 @@ fn main() {
 
             for factors in primes.iter() {
                 let mut f = needed_factors.clone();
-                let mut still_needed: Vec<&i64> = factors.iter()
+                let still_needed: Vec<&i64> = factors.iter()
                     .filter(|&fac| {
                         if f.contains(fac) {
                             let pos = f.position_elem(fac).unwrap();

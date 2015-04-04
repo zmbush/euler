@@ -1,8 +1,4 @@
 #[macro_use] extern crate libeuler;
-use std::num::Int;
-use std::iter::AdditiveIterator;
-use std::iter::MultiplicativeIterator;
-use libeuler::SieveOfAtkinIterator;
 
 /// In the 20×20 grid below, four numbers along a diagonal line have been marked in red.
 ///
@@ -152,7 +148,7 @@ fn main() {
     }
 
     solutions!{
-        inputs: (ceiling: u64 = 2_000_000)
+        inputs: ()
 
         sol naive {
             GridIter::new(grid).map(|v| v.iter().fold(1, |a, &x| a * x)).max()

@@ -38,8 +38,6 @@ fn main() {
 
                     self.memo.insert((wid, hei), retval);
 
-                    println!("{}x{} = {}", wid, hei, retval);
-
                     retval
                 }
             }

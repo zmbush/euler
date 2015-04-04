@@ -1,6 +1,5 @@
 #[macro_use] extern crate libeuler;
 use libeuler::SieveOfAtkin;
-use std::num::Float;
 
 /// The prime factors of 13195 are 5, 7, 13 and 29.
 ///

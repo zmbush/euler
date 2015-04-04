@@ -1,13 +1,7 @@
 #[macro_use] extern crate libeuler;
 extern crate num;
-use std::num::Int;
-use std::iter::AdditiveIterator;
-use libeuler::SieveOfAtkin;
-use std::collections::HashMap;
 
-use num::bigint::BigInt;
 use num::bigint::ToBigInt;
-use num::traits::One;
 
 /// 2^15 = 32768 and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.
 ///

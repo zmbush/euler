@@ -1,5 +1,5 @@
+#![feature(core)]
 #[macro_use] extern crate libeuler;
-use std::num::Int;
 use std::iter::AdditiveIterator;
 use libeuler::SieveOfAtkinIterator;
 

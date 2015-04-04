@@ -14,7 +14,7 @@ fn main() {
                 prev = value;
                 value = tmp;
 
-                if (value % 2 == 0) {
+                if value % 2 == 0 {
                     result += value;
                 }
             }

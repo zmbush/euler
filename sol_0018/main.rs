@@ -1,9 +1,4 @@
 #[macro_use] extern crate libeuler;
-extern crate num;
-use std::num::Int;
-use std::iter::AdditiveIterator;
-use libeuler::SieveOfAtkin;
-use std::collections::HashMap;
 
 use std::cmp;
 

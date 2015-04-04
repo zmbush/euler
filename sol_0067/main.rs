@@ -1,10 +1,4 @@
 #[macro_use] extern crate libeuler;
-extern crate num;
-use std::num::Int;
-use std::iter::AdditiveIterator;
-use libeuler::SieveOfAtkin;
-use std::collections::HashMap;
-
 use std::cmp;
 
 /// By starting at the top of the triangle below and moving to adjacent numbers on the row below,

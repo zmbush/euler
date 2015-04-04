@@ -1,13 +1,7 @@
 #[macro_use] extern crate libeuler;
 extern crate num;
-use std::num::Int;
-use std::iter::AdditiveIterator;
 use libeuler::SieveOfAtkin;
 use std::collections::HashMap;
-
-use num::bigint::BigInt;
-use num::bigint::ToBigInt;
-use num::traits::One;
 
 /// Let d(n) be defined as the sum of proper divisors of n (numbers less than n which divide evenly
 /// into n).
@@ -59,18 +53,4 @@ fn main() {
             sum
         }
     };
-}
-
-trait ChooseN {
-    type Unit;
-
-    fn choose_n(n: u64) -> Vec<Vec<Self::Unit>>;
-}
-
-impl ChooseN for Vec<u64> {
-    type Unit = u64;
-
-    fn choose_n(n: u64) -> Vec<Vec<u64>> {
-        Vec::new()
-    }
 }

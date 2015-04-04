@@ -1,5 +1,5 @@
+#![feature(core)]
 #[macro_use] extern crate libeuler;
-use std::num::Int;
 use std::iter::MultiplicativeIterator;
 
 /// The four adjacent digits in the 1000-digit number that have the greatest product are

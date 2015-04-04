@@ -1,13 +1,4 @@
 #[macro_use] extern crate libeuler;
-extern crate num;
-use std::num::Int;
-use std::iter::AdditiveIterator;
-use libeuler::SieveOfAtkin;
-use std::collections::HashMap;
-
-use num::bigint::BigInt;
-use num::bigint::ToBigInt;
-use num::traits::One;
 
 /// If the numbers 1 to 5 are written out in words: one, two, three, four, five, then there are 3 +
 /// 3 + 5 + 4 + 4 = 19 letters used in total.
@@ -81,7 +72,6 @@ fn main() {
 
             let mut count = 0;
             for i in 0..max_number {
-                println!("{} => {}", i + 1, wordify(i + 1));
                 count += wordify(i + 1).len();
             }
 

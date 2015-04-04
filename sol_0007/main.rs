@@ -1,5 +1,4 @@
 #[macro_use] extern crate libeuler;
-use std::num::Int;
 use libeuler::{PrimeIterator, SieveOfAtkinIterator};
 
 /// By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
@@ -62,11 +61,11 @@ fn main() {
         }
 
         sol iterator {
-            PrimeIterator::new().nth(nth_prime - 1).unwrap_or(-1)
+            PrimeIterator::new().nth(nth_prime - 1).unwrap_or(0 - 1)
         }
 
         sol sieve_of_atkin {
-            SieveOfAtkinIterator::new(500_000).nth(nth_prime - 1).unwrap_or(-1)
+            SieveOfAtkinIterator::new(500_000).nth(nth_prime - 1).unwrap_or(0)
         }
     };
 }

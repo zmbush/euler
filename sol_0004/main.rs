@@ -1,5 +1,5 @@
 #[macro_use] extern crate libeuler;
-use std::num::Int;
+extern crate num;
 
 /// A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
 ///
@@ -9,8 +9,9 @@ fn main() {
         inputs: (digits: i64 = 3)
 
         sol naive {
-            let min = 10.pow((digits - 1) as usize); // 1 digit = 10^0, 2 digit = 10^1, 3 digit = 10^2
-            let max = 10.pow(digits as usize);
+            // 1 digit = 10^0, 2 digit = 20^1, 3 digit = 10^2
+            let min = num::pow(10, (digits - 1) as usize);
+            let max = num::pow(10, digits as usize);
             let mut max_palindrome: i64 = 0;
 
             for first in min..max {
@@ -35,8 +36,8 @@ impl PalindromeHelper for String {
     fn is_palindrome(&self) -> bool {
         let forward = self.chars().take(self.len() / 2);
         let reverse = self.chars().rev().take(self.len() / 2);
-        let both_directions = forward.zip(reverse);
-        both_directions.all(|(a, b)| { a == b })
+
+        forward.zip(reverse).all(|(a, b)| { a == b })
     }
 }
 

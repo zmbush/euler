@@ -1,12 +1,7 @@
 #[macro_use] extern crate libeuler;
 extern crate num;
-use std::num::Int;
-use std::iter::AdditiveIterator;
-use libeuler::SieveOfAtkin;
-use std::collections::HashMap;
 
 use num::bigint::BigUint;
-use num::traits::One;
 
 
 /// Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.
@@ -219,10 +214,10 @@ fn main() {
 
         sol naive {
             let sum = numbers.iter().fold(BigUint::parse_bytes(b"1", 10).unwrap(), |c, a| {
-                c + BigUint::parse_bytes(a, 10).unwrap()
+                c + BigUint::parse_bytes(*a, 10).unwrap()
             });
             let full = format!("{}", sum);
-            let part = full[0..10].as_slice();
+            let part: &str = full[0..10].as_ref();
 
             part.parse::<u64>()
         }

@@ -45,7 +45,7 @@ fn main() {
                         self.cache.insert(n, value);
                     }
 
-                    self.cache[n]
+                    self.cache[&n]
                 }
             }
 
