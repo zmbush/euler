@@ -43,7 +43,7 @@ fn main() {
         inputs: ()
 
         sol naive {
-            let stuff = include_str!("../input.txt");
+            let stuff = include_str!("input.txt");
             let mut numbers: Vec<Vec<u64>> = Vec::new();
 
             for i in stuff.lines().rev() {

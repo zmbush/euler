@@ -7,7 +7,7 @@ for f in sol_*; do
   cat << EOF >> Cargo.toml
 [[bin]]
 name = "$f"
-path = "$f/src/main.rs"
+path = "$f/main.rs"
 
 EOF
 done
