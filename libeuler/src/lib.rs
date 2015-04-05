@@ -6,6 +6,7 @@
 extern crate getopts;
 pub use getopts::Options;
 use std::collections::HashSet;
+use std::collections::HashMap;
 
 #[macro_export]
 macro_rules! solutions {
@@ -201,6 +202,33 @@ impl SieveOfAtkin {
 
     pub fn is_prime(&self, number: u64) -> bool {
         self.prime_set.contains(&number)
+    }
+
+    // Algorithm found here http://mathschallenge.net/library/number/sum_of_divisors
+    pub fn sum_of_divisors(&self, n: u64) -> u64 {
+        let factors = self.factorize(n);
+        let groups = factors.iter().fold(HashMap::new(), |mut m, &v| {
+            let c = m.remove(&v).unwrap_or(0) + 1;
+            m.insert(v, c);
+
+            m
+        });
+
+        let mut v = 1;
+
+        for (value, &power) in groups.iter() {
+            v *= (value.pow(power as u32 + 1) - 1) / (value - 1);
+        }
+
+        v
+    }
+
+    pub fn sum_of_proper_divisors(&self, n: u64) -> u64 {
+        if n == 1 {
+            1
+        } else {
+            self.sum_of_divisors(n) - n
+        }
     }
 }
 

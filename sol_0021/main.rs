@@ -1,7 +1,6 @@
 #[macro_use] extern crate libeuler;
 extern crate num;
 use libeuler::SieveOfAtkin;
-use std::collections::HashMap;
 
 /// Let d(n) be defined as the sum of proper divisors of n (numbers less than n which divide evenly
 /// into n).
@@ -18,28 +17,8 @@ fn main() {
 
         sol naive {
             let sieve = SieveOfAtkin::new(2_000_000);
-            // Algorithm found here http://mathschallenge.net/library/number/sum_of_divisors
-            let d = |n: u64| {
-                let factors = sieve.factorize(n);
-                let groups = factors.iter().fold(HashMap::new(), |mut m, &v| {
-                    let c = m.remove(&v).unwrap_or(0) + 1;
-                    m.insert(v, c);
 
-                    m
-                });
-
-
-                let mut v = 1;
-                for (value, &power) in groups.iter() {
-                    v *= (value.pow(power as u32 + 1) - 1) / (value - 1);
-                }
-
-                if n != 1 {
-                    v - n
-                } else {
-                    v
-                }
-            };
+            let d = |n: u64| sieve.sum_of_proper_divisors(n);
 
             let mut sum = 0;
             for a in 1..max_number {
