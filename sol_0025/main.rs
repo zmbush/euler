@@ -33,7 +33,7 @@ fn main() {
         inputs: (digits: usize = 1000)
 
         sol naive {
-            let min_bits = digits as f32 * 2.5f32;
+            let min_bits = digits as f32 * 3.319f32;
             let mut current = BigUint::zero();
             let mut previous = BigUint::one();
             let mut i = 0;
