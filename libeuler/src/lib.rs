@@ -116,6 +116,7 @@ impl Iterator for PrimeIterator {
     }
 }
 
+#[derive(Clone)]
 pub struct SieveOfAtkin {
     primes: Vec<u64>,
     prime_set: HashSet<u64>
@@ -177,6 +178,13 @@ impl SieveOfAtkin {
         SieveOfAtkin {
             primes: primes,
             prime_set: prime_set
+        }
+    }
+
+    pub fn iter(&self) -> SieveOfAtkinIterator {
+        SieveOfAtkinIterator {
+            ix: 0,
+            sieve: self.clone()
         }
     }
 

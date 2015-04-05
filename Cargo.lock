@@ -3,7 +3,7 @@ name = "Euler solutions"
 version = "1.0.0"
 dependencies = [
  "libeuler 0.0.1",
- "num 0.1.21 (registry+https://github.com/rust-lang/crates.io-index)",
+ "num 0.1.22 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -36,7 +36,7 @@ dependencies = [
 
 [[package]]
 name = "num"
-version = "0.1.21"
+version = "0.1.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "rand 0.3.7 (registry+https://github.com/rust-lang/crates.io-index)",
