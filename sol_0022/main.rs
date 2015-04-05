@@ -25,8 +25,7 @@ fn main() {
         sol naive {
             names.iter().zip(0..names.len()).map(|(&name, index)| {
                 name.chars()
-                    .map(|c| c as u8 - 'A' as u8 + 1)
-                    .map(|v| v as u64)
+                    .map(|c| c as u64 - 'A' as u64 + 1)
                     .sum() * (index as u64 + 1)
             }).sum()
         }
