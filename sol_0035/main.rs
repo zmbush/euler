@@ -14,7 +14,7 @@ use num::traits::PrimInt;
 fn main() {
     solutions! {
         sol naive {
-            let sieve = SieveOfAtkin::new(10_000_000);
+            let sieve = SieveOfAtkin::new(1_000_000);
             let mut vals = HashSet::new();
 
             for i in 1..1_000_000 {
