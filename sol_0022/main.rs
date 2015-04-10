@@ -1,7 +1,5 @@
 #![feature(core)]
-
 #[macro_use] extern crate libeuler;
-use std::iter::AdditiveIterator;
 
 // Using names.txt (right click and 'Save Link/Target As...'), a 46K text file containing over
 // five-thousand first names, begin by sorting it into alphabetical order. Then working out the
@@ -26,8 +24,8 @@ fn main() {
             names.iter().zip(0..names.len()).map(|(&name, index)| {
                 name.chars()
                     .map(|c| c as u64 - 'A' as u64 + 1)
-                    .sum() * (index as u64 + 1)
-            }).sum()
+                    .sum::<u64>() * (index as u64 + 1)
+            }).sum::<u64>()
         }
     }
 }

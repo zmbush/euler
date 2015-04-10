@@ -2,7 +2,6 @@
 #[macro_use] extern crate libeuler;
 
 use std::collections::HashSet;
-use std::iter::AdditiveIterator;
 /// We shall say that an n-digit number is pandigital if it makes use of all the digits 1 to n
 /// exactly once; for example, the 5-digit number, 15234, is 1 through 5 pandigital.
 ///
@@ -29,7 +28,7 @@ fn main() {
                 }
             }
 
-            products.iter().map(|&a| a).sum()
+            products.iter().map(|&a| a).sum::<i64>()
         }
     }
 }

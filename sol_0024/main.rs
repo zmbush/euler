@@ -1,7 +1,6 @@
 #![feature(collections)]
 #[macro_use] extern crate libeuler;
 
-use std::collections::HashMap;
 use std::slice::SliceConcatExt;
 
 /// A permutation is an ordered arrangement of objects. For example, 3124 is one possible

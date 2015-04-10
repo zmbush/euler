@@ -1,6 +1,5 @@
 #![feature(core)]
 #[macro_use] extern crate libeuler;
-use std::iter::AdditiveIterator;
 use libeuler::SieveOfAtkinIterator;
 
 /// The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
@@ -13,7 +12,7 @@ fn main() {
         sol naive {
             SieveOfAtkinIterator::new(ceiling)
                 .take_while(|&a| a < ceiling)
-                .sum()
+                .sum::<u64>()
         }
     };
 }
