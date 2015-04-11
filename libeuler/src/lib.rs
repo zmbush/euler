@@ -267,3 +267,22 @@ impl Iterator for SieveOfAtkinIterator {
         }
     }
 }
+
+pub trait PalindromeHelper {
+    fn is_palindrome(&self) -> bool;
+}
+
+impl PalindromeHelper for String {
+    fn is_palindrome(&self) -> bool {
+        let forward = self.chars().take(self.len() / 2);
+        let reverse = self.chars().rev().take(self.len() / 2);
+
+        forward.zip(reverse).all(|(a, b)| { a == b })
+    }
+}
+
+impl PalindromeHelper for i64 {
+    fn is_palindrome(&self) -> bool {
+        format!("{}", self).is_palindrome()
+    }
+}

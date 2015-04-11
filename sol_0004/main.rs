@@ -1,6 +1,8 @@
 #[macro_use] extern crate libeuler;
 extern crate num;
 
+use libeuler::PalindromeHelper;
+
 /// A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
 ///
 /// Find the largest palindrome made from the product of two 3-digit numbers.
@@ -26,23 +28,4 @@ fn main() {
             max_palindrome
         }
     };
-}
-
-trait PalindromeHelper {
-    fn is_palindrome(&self) -> bool;
-}
-
-impl PalindromeHelper for String {
-    fn is_palindrome(&self) -> bool {
-        let forward = self.chars().take(self.len() / 2);
-        let reverse = self.chars().rev().take(self.len() / 2);
-
-        forward.zip(reverse).all(|(a, b)| { a == b })
-    }
-}
-
-impl PalindromeHelper for i64 {
-    fn is_palindrome(&self) -> bool {
-        format!("{}", self).is_palindrome()
-    }
 }
