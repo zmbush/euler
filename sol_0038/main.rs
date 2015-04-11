@@ -23,15 +23,10 @@ fn main() {
     solutions! {
         sol naive {
             let mut max = 0;
-            for i in 0..1_000_000 {
-                match get_pandigital_concat(i) {
-                    Some(v) => {
-                        if v > max {
-                            println!("{} => {}", i, v);
-                            max = v
-                        }
-                    },
-                    _ => {}
+            for i in 0..10_000 {
+                let v = get_pandigital_concat(i).unwrap_or(0);
+                if v > max {
+                    max = v;
                 }
             }
 
