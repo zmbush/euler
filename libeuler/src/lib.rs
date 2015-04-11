@@ -286,3 +286,26 @@ impl PalindromeHelper for i64 {
         format!("{}", self).is_palindrome()
     }
 }
+
+pub trait DigitsHelper {
+    fn digits(&self) -> (Vec<u8>, HashSet<u8>);
+}
+
+impl DigitsHelper for i64 {
+    fn digits(&self) -> (Vec<u8>, HashSet<u8>) {
+        let mut num = self.clone();
+        let mut rv = Vec::new();
+        let mut rs = HashSet::new();
+
+        while num > 0 {
+            let n = (num % 10) as u8;
+            rv.push(n);
+            rs.insert(n);
+            num /= 10;
+        }
+
+        rv.reverse();
+
+        (rv, rs)
+    }
+}

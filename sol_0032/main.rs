@@ -2,6 +2,7 @@
 #[macro_use] extern crate libeuler;
 
 use std::collections::HashSet;
+use libeuler::DigitsHelper;
 /// We shall say that an n-digit number is pandigital if it makes use of all the digits 1 to n
 /// exactly once; for example, the 5-digit number, 15234, is 1 through 5 pandigital.
 ///
@@ -33,16 +34,9 @@ fn main() {
     }
 }
 
-fn get_digits(mut num: i64) -> (HashSet<u8>, usize) {
-    let mut count = 0;
-    let mut retval = HashSet::new();
-    while num > 0 {
-        count += 1;
-        retval.insert((num % 10) as u8);
-        num /= 10;
-    }
-
-    (retval, count)
+fn get_digits(num: i64) -> (HashSet<u8>, usize) {
+    let (v, s) = num.digits();
+    (s, v.len())
 }
 
 fn without_repeats(a: i64) -> bool {
