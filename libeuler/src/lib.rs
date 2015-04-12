@@ -289,6 +289,12 @@ impl PalindromeHelper for i64 {
 
 pub trait DigitsHelper {
     fn digits(&self) -> (Vec<u8>, HashSet<u8>);
+
+    fn count_digits(&self) -> usize {
+        let (v, _) = self.digits();
+
+        v.len()
+    }
 }
 
 impl DigitsHelper for i64 {
