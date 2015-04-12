@@ -295,6 +295,12 @@ pub trait DigitsHelper {
 
         v.len()
     }
+
+    fn is_pandigital(&self) -> bool {
+        let (v, s) = self.digits();
+
+        (0..(v.len() as u8)).all(|i| s.contains(&(i+1)))
+    }
 }
 
 impl DigitsHelper for i64 {
@@ -313,5 +319,11 @@ impl DigitsHelper for i64 {
         rv.reverse();
 
         (rv, rs)
+    }
+}
+
+impl DigitsHelper for u64 {
+    fn digits(&self) -> (Vec<u8>, HashSet<u8>) {
+        (self.clone() as i64).digits()
     }
 }
