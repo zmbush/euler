@@ -1,4 +1,3 @@
-#![feature(core)]
 #[macro_use] extern crate libeuler;
 extern crate num;
 

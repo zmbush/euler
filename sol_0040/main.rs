@@ -16,7 +16,7 @@ use libeuler::DigitsHelper;
 fn main() {
     solutions! {
         sol naive {
-            let mut num = 1;
+            let mut num = 1i64;
             let mut i = 0;
             let mut need = 1;
             let mut prod = 1;
