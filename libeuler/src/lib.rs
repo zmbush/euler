@@ -208,6 +208,14 @@ impl SieveOfAtkin {
         unreachable!();
     }
 
+    pub fn factors(&self, number: u64) -> HashSet<u64> {
+        let mut retval = HashSet::new();
+        for factor in self.factorize(number) {
+            retval.insert(factor);
+        }
+        retval
+    }
+
     pub fn is_prime(&self, number: u64) -> bool {
         self.prime_set.contains(&number)
     }
