@@ -1,6 +1,7 @@
 #![feature(core)]
 #[macro_use] extern crate libeuler;
 
+use libeuler::GonalNumberHelper;
 /// The nth term of the sequence of triangle numbers is given by, tn = ½n(n+1); so the first ten
 /// triangle numbers are:
 ///
@@ -21,27 +22,11 @@ fn main() {
                 .collect();
 
             words.iter().filter(|w| {
-                is_triangle(w.chars()
-                            .map(|c| (c as i64) - ('A' as i64) + 1)
-                            .sum())
+                w.chars()
+                    .map(|c| (c as i64) - ('A' as i64) + 1)
+                    .sum::<i64>()
+                    .is_triangular()
             }).count()
         }
     }
 }
-
-//       x = 1/2 * n * (n + 1)
-//       2x = n*(n+1)
-//       2x = n^2 + n
-//       2x = n^2 + n
-//       8x = 4n^2 + 4
-//       8x + 1 = 4n^2 + 4 + 1
-//       8x + 1 = (2n + 1)^2
-//       sqrt(8x + 1) = 2n + 1
-//       2n = sqrt(8x + 1) - 1
-//       n = .5(sqrt(8x + 1) - 1)
-fn is_triangle(x: i64) -> bool {
-    let n = 0.5*(((8.0*x as f64) + 1.0).sqrt() - 1.0);
-
-    n.floor() == n
-}
-

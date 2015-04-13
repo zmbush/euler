@@ -327,3 +327,38 @@ impl DigitsHelper for u64 {
         (self.clone() as i64).digits()
     }
 }
+
+pub trait GonalNumberHelper {
+    /// Triangle        T_n=n(n+1)/2         1, 3, 6, 10, 15, ...
+    fn is_triangular(&self) -> bool;
+
+    /// Pentagonal      P_n=n(3n−1)/2        1, 5, 12, 22, 35, ...
+    fn is_pentagonal(&self) -> bool;
+
+    /// Hexagonal       H_n=n(2n−1)      1, 6, 15, 28, 45, ...
+    fn is_hexagonal(&self) -> bool;
+}
+
+macro_rules! gonal_number_helper_impl {
+    ($($ty:ty)+) => ($(
+        impl GonalNumberHelper for $ty {
+            fn is_triangular(&self) -> bool {
+                let n = 0.5*(((8.0*(*self) as f64) + 1.0).sqrt() - 1.0);
+                n.floor() == n
+            }
+
+            fn is_pentagonal(&self) -> bool {
+                let n = (1.0/6.0) * ((24.0 * ((*self) as f64) + 1.0).sqrt() + 1.0);
+
+                n.floor() == n
+            }
+
+            fn is_hexagonal(&self) -> bool {
+                let n = 0.25*(((8.0*(*self) as f64) + 1.0).sqrt() + 1.0);
+                n.floor() == n
+            }
+        }
+    )+)
+}
+
+gonal_number_helper_impl!(u8 i8 u16 i16 u32 i32 i64 u64);
