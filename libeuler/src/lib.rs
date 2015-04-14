@@ -4,9 +4,20 @@
 )]
 
 extern crate getopts;
+extern crate time;
 pub use getopts::Options;
 use std::collections::HashSet;
 use std::collections::HashMap;
+use std::fmt::Debug;
+
+pub fn time_execution<F: Fn() -> R, R: Debug>(f: F) -> R {
+    let start = time::precise_time_s();
+    let retval = f();
+    let diff = time::precise_time_s() - start;
+    println!("Time: {} seconds ({} milliseconds)", diff, diff * 1000.0);
+
+    retval
+}
 
 #[macro_export]
 macro_rules! solutions {
@@ -70,7 +81,7 @@ macro_rules! solutions {
         $(
             if solutions.contains(&stringify!($name).to_string()) {
                 println!("Running: {}", stringify!($name));
-                println!("Result: {:?}", $name());
+                println!("Result: {:?}", $crate::time_execution($name));
                 println!("");
             }
         )+

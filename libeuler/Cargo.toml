@@ -6,3 +6,4 @@ authors = ["Zachary Bush <zachary.bush@meraki.net>"]
 
 [dependencies]
 getopts = "*"
+time = "*"
