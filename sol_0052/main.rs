@@ -1,6 +1,8 @@
+#![feature(core)]
 #[macro_use] extern crate libeuler;
 
 use libeuler::traits::DigitsHelper;
+use std::iter::range_inclusive;
 
 /// It can be seen that the number, 125874, and its double, 251748, contain exactly the same
 /// digits, but in a different order.
@@ -11,7 +13,7 @@ fn main() {
     solutions! {
         sol naive {
             for i in 1.. {
-                if (2..7).all(|d| i.is_permutation_of(&(i*d))) {
+                if range_inclusive(2, 6).all(|d| i.is_permutation_of(&(i*d))) {
                     return i
                 }
             }
