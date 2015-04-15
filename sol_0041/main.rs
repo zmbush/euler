@@ -1,6 +1,7 @@
 #[macro_use] extern crate libeuler;
 
-use libeuler::{SieveOfAtkin, DigitsHelper};
+use libeuler::prime::SieveOfAtkin;
+use libeuler::traits::DigitsHelper;
 
 /// We shall say that an n-digit number is pandigital if it makes use of all the digits 1 to n
 /// exactly once. For example, 2143 is a 4-digit pandigital and is also prime.

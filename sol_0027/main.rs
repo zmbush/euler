@@ -1,10 +1,6 @@
 #[macro_use] extern crate libeuler;
 
-use libeuler::{
-    SieveOfAtkin,
-    SieveOfAtkinIterator
-};
-
+use libeuler::prime::{SieveOfAtkin, SieveOfAtkinIterator};
 
 /// Euler discovered the remarkable quadratic formula:
 ///

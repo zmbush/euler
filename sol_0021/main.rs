@@ -1,6 +1,6 @@
 #[macro_use] extern crate libeuler;
 extern crate num;
-use libeuler::SieveOfAtkin;
+use libeuler::prime::SieveOfAtkin;
 
 /// Let d(n) be defined as the sum of proper divisors of n (numbers less than n which divide evenly
 /// into n).

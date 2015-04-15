@@ -1,6 +1,6 @@
 #[macro_use] extern crate libeuler;
 
-use libeuler::DigitsHelper;
+use libeuler::traits::DigitsHelper;
 
 /// An irrational decimal fraction is created by concatenating the positive integers:
 ///

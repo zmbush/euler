@@ -2,7 +2,7 @@
 #[macro_use] extern crate libeuler;
 extern crate num;
 
-use libeuler::SieveOfAtkin;
+use libeuler::prime::SieveOfAtkin;
 use num::traits::PrimInt;
 
 /// The number 3797 has an interesting property. Being prime itself, it is possible to continuously

@@ -1,5 +1,5 @@
 #[macro_use] extern crate libeuler;
-use libeuler::SieveOfAtkin;
+use libeuler::prime::SieveOfAtkin;
 use std::collections::HashMap;
 
 

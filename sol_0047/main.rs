@@ -1,6 +1,6 @@
 #[macro_use] extern crate libeuler;
 
-use libeuler::SieveOfAtkin;
+use libeuler::prime::SieveOfAtkin;
 /// The first two consecutive numbers to have two distinct prime factors are:
 ///
 /// 14 = 2 × 7

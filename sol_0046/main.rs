@@ -1,7 +1,7 @@
 #[macro_use] extern crate libeuler;
 extern crate num;
 
-use libeuler::SieveOfAtkin;
+use libeuler::prime::SieveOfAtkin;
 use num::integer::Integer;
 
 /// It was proposed by Christian Goldbach that every odd composite number can be written as the sum

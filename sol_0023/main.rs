@@ -1,7 +1,7 @@
 #![feature(core)]
 #[macro_use] extern crate libeuler;
 
-use libeuler::SieveOfAtkin;
+use libeuler::prime::SieveOfAtkin;
 use std::collections::HashSet;
 
 /// A perfect number is a number for which the sum of its proper divisors is exactly equal to the

@@ -1,7 +1,7 @@
 #[macro_use] extern crate libeuler;
 extern crate num;
 
-use libeuler::SieveOfAtkin;
+use libeuler::prime::SieveOfAtkin;
 use std::collections::HashSet;
 use num::traits::PrimInt;
 

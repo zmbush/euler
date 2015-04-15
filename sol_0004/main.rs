@@ -1,7 +1,7 @@
 #[macro_use] extern crate libeuler;
 extern crate num;
 
-use libeuler::PalindromeHelper;
+use libeuler::traits::PalindromeHelper;
 
 /// A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
 ///
