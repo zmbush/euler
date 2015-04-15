@@ -39,6 +39,15 @@ pub trait DigitsHelper {
 
         (0..(v.len() as u8)).all(|i| s.contains(&(i+1)))
     }
+
+    fn is_permutation_of(&self, other: &Self) -> bool {
+        let (mut va, _) = self.digits();
+        let (mut vb, _) = other.digits();
+        va.sort();
+        vb.sort();
+
+        va == vb
+    }
 }
 
 macro_rules! digits_helper_impl {
