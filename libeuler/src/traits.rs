@@ -25,8 +25,9 @@ macro_rules! palindrome_helper_impl {
 
 palindrome_helper_impl!(u8 i8 u16 i16 u32 i32 u64 i64);
 
-pub trait DigitsHelper {
+pub trait DigitsHelper: Copy + Sized {
     fn digits(&self) -> (Vec<u8>, HashSet<u8>);
+    fn from_digits(&self, Vec<u8>) -> Self;
 
     fn count_digits(&self) -> usize {
         let (v, _) = self.digits();
@@ -48,6 +49,18 @@ pub trait DigitsHelper {
 
         va == vb
     }
+
+    fn replace_all(&self, value: u8, with: u8) -> Self {
+        let (mut va, _) = self.digits();
+        
+        for i in 0..va.len() {
+            if va[i] == value {
+                va[i] = with;
+            }
+        }
+
+        self.from_digits(va)
+    }
 }
 
 macro_rules! digits_helper_impl {
@@ -68,6 +81,10 @@ macro_rules! digits_helper_impl {
                 rv.reverse();
 
                 (rv, rs)
+            }
+
+            fn from_digits(&self, digits: Vec<u8>) -> $T {
+                digits.iter().fold(0, |r, &d| r*10 + d as $T)
             }
         }
     )+)
