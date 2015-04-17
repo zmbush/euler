@@ -1,4 +1,6 @@
 use std::collections::HashSet;
+use num::bigint::{BigInt, ToBigInt};
+use num::traits::{Zero, ToPrimitive};
 
 pub trait PalindromeHelper {
     fn is_palindrome(&self) -> bool;
@@ -25,9 +27,21 @@ macro_rules! palindrome_helper_impl {
 
 palindrome_helper_impl!(u8 i8 u16 i16 u32 i32 u64 i64);
 
-pub trait DigitsHelper: Copy + Sized {
+impl PalindromeHelper for BigInt {
+    fn is_palindrome(&self) -> bool {
+        format!("{}", self).is_palindrome()
+    }
+}
+
+pub trait DigitsHelper: Clone + Sized {
     fn digits(&self) -> (Vec<u8>, HashSet<u8>);
     fn from_digits(&self, Vec<u8>) -> Self;
+
+    fn reverse(&self) -> Self {
+        let (mut v, _) = self.digits();
+        v.reverse();
+        self.from_digits(v)
+    }
 
     fn count_digits(&self) -> usize {
         let (v, _) = self.digits();
@@ -91,6 +105,31 @@ macro_rules! digits_helper_impl {
 }
 
 digits_helper_impl!(u8 i8 u16 i16 u32 i32 i64 u64);
+
+impl DigitsHelper for BigInt {
+    fn digits(&self) -> (Vec<u8>, HashSet<u8>) {
+        let ten = 10.to_bigint().unwrap();
+        let mut num = self.clone();
+        let mut rv = Vec::new();
+        let mut rs = HashSet::new();
+
+        while num > BigInt::zero() {
+            let n = (&num % &ten).to_u8().unwrap();
+            rv.push(n);
+            rs.insert(n);
+            num = &num / &ten;
+        }
+
+        rv.reverse();
+
+        (rv, rs)
+    }
+
+    fn from_digits(&self, digits: Vec<u8>) -> BigInt {
+        let ten = 10.to_bigint().unwrap();
+        digits.iter().fold(BigInt::zero(), |r, &d| r*(&ten) + d.to_bigint().unwrap())
+    }
+}
 
 pub trait GonalNumberHelper {
     /// Triangle        T_n=n(n+1)/2         1, 3, 6, 10, 15, ...

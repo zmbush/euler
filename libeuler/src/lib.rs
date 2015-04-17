@@ -5,6 +5,7 @@
 
 extern crate getopts;
 extern crate time;
+extern crate num;
 use std::fmt::Debug;
 
 pub use getopts::Options;

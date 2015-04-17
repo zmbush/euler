@@ -29,6 +29,7 @@ name = "libeuler"
 version = "0.0.1"
 dependencies = [
  "getopts 0.2.9 (registry+https://github.com/rust-lang/crates.io-index)",
+ "num 0.1.22 (registry+https://github.com/rust-lang/crates.io-index)",
  "time 0.1.24 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
