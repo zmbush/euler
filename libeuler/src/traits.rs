@@ -25,7 +25,7 @@ macro_rules! palindrome_helper_impl {
     )+)
 }
 
-palindrome_helper_impl!(u8 i8 u16 i16 u32 i32 u64 i64);
+palindrome_helper_impl!(u8 i8 u16 i16 u32 i32 u64 i64 isize usize);
 
 impl PalindromeHelper for BigInt {
     fn is_palindrome(&self) -> bool {
@@ -104,7 +104,7 @@ macro_rules! digits_helper_impl {
     )+)
 }
 
-digits_helper_impl!(u8 i8 u16 i16 u32 i32 i64 u64);
+digits_helper_impl!(u8 i8 u16 i16 u32 i32 i64 u64 isize usize);
 
 impl DigitsHelper for BigInt {
     fn digits(&self) -> (Vec<u8>, HashSet<u8>) {
@@ -164,4 +164,4 @@ macro_rules! gonal_number_helper_impl {
     )+)
 }
 
-gonal_number_helper_impl!(u8 i8 u16 i16 u32 i32 i64 u64);
+gonal_number_helper_impl!(u8 i8 u16 i16 u32 i32 i64 u64 isize usize);
