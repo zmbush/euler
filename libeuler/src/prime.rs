@@ -199,3 +199,15 @@ impl Iterator for PrimeIterator {
     }
 }
 
+use num::traits::ToPrimitive;
+pub fn is_prime<T: ToPrimitive>(i: T) -> bool {
+    let num = i.to_i64().unwrap();
+
+    for i in 2..(num.to_f64().unwrap().sqrt().floor() as i64 + 1) {
+        if num % i == 0 {
+            return false;
+        }
+    }
+
+    true
+}
