@@ -27,13 +27,14 @@ fn main() {
         sol naive {
             let cypher = include!("cipher.txt");
             let mut max = 0;
-            let mut key = (0, 0, 0);
+            let mut max_count = 0;
 
             for a in ('a' as u8)..('z' as u8 + 1) {
                 for b in ('a' as u8)..('z' as u8 + 1) {
                     for c in ('a' as u8)..('z' as u8 + 1) {
                         let mut ix = 0;
-                        let mut valid_chars = 0;
+                        let mut spaces = 0;
+                        let mut count = 0;
 
                         for int in cypher.iter() {
                             let xor = match ix {
@@ -41,50 +42,27 @@ fn main() {
                                 1 => b,
                                 _ => c
                             };
-                            let ch = (int ^ xor) as char;
 
-                            match ch {
-                                'a'...'z' |
-                                'A'...'Z' |
-                                '0'...'9' |
-                                '.' | '"' | '\'' | ':' |
-                                ' ' | '(' | ')' | ',' => valid_chars += 1,
-                                _ => break
+                            let v = int ^ xor;
+                            count += v as i64;
+                            let ch = v as char;
+
+                            if ch == ' ' {
+                                spaces += 1;
                             }
 
-                            ix += 1;
-                            ix %= 3;
+                            ix = (ix + 1) % 3;
                         }
 
-                        if valid_chars > max {
-                            max = valid_chars;
-                            key = (a, b, c);
+                        if spaces > max {
+                            max = spaces;
+                            max_count = count;
                         }
                     }
                 }
             }
 
-            let (a, b, c) = key;
-            let mut ix = 0;
-            print!("Message: ");
-            let mut sum = 0;
-            for int in cypher {
-                let xor = match ix {
-                    0 => a,
-                    1 => b,
-                    _ => c
-                };
-
-                ix = (ix + 1) % 3;
-
-                let v = int ^ xor;
-                sum += v as i64;
-                print!("{}", v as char);
-            }
-
-            println!("");
-
-            sum
+            max_count
         }
     }
 }
