@@ -131,37 +131,104 @@ impl DigitsHelper for BigInt {
     }
 }
 
-pub trait GonalNumberHelper {
+pub trait PolygonalNumber {
+    /// n = (1/a)(sqrt(bx + c) + d)
+    fn calc_poly(&self, a: f64, b: f64, c: f64, d: f64) -> f64;
+
+    fn is_poly(&self, a: f64, b: f64, c: f64, d: f64) -> bool {
+        let n = self.calc_poly(a, b, c, d);
+        n.floor() == n
+    }
+
     /// Triangle        T_n=n(n+1)/2         1, 3, 6, 10, 15, ...
-    fn is_triangular(&self) -> bool;
+    /// n = (1/2)(sqrt(8x + 1) - 1)
+    fn is_triangular(&self) -> bool {
+        self.is_poly(2.0, 8.0, 1.0, -1.0)
+    }
+
+    /// Square          S_n=n^2              1, 4, 9, 15, 25, ...
+    /// n = sqrt(x)
+    fn is_square(&self) -> bool {
+        self.is_poly(1.0, 1.0, 0.0, 0.0)
+    }
 
     /// Pentagonal      P_n=n(3n−1)/2        1, 5, 12, 22, 35, ...
-    fn is_pentagonal(&self) -> bool;
+    /// n = (1/6)(sqrt(24x + 1) + 1)
+    fn is_pentagonal(&self) -> bool {
+        self.is_poly(6.0, 24.0, 1.0, 1.0)
+    }
 
-    /// Hexagonal       H_n=n(2n−1)      1, 6, 15, 28, 45, ...
-    fn is_hexagonal(&self) -> bool;
+    /// Hexagonal       H_n=n(2n−1)          1, 6, 15, 28, 45, ...
+    /// n = (1/4)(sqrt(8x + 1) + 1)
+    fn is_hexagonal(&self) -> bool {
+        self.is_poly(4.0, 8.0, 1.0, 1.0)
+    }
+
+    /// Heptagonal      H_n=n(5n-3)/2        1, 7, 18, 34, 55, ...
+    /// n = (1/10)(sqrt(40x + 9) + 3)
+    fn is_heptagonal(&self) -> bool {
+        self.is_poly(10.0, 40.0, 9.0, 3.0)
+    }
+
+    /// Octagonal       O_n=n(3n-2)          1, 8, 21, 40, 65, ...
+    /// n = (1/3)(sqrt(3x + 1) + 1)
+    fn is_octagonal(&self) -> bool {
+        self.is_poly(3.0, 3.0, 1.0, 1.0)
+    }
 }
 
-macro_rules! gonal_number_helper_impl {
+macro_rules! polygonal_number_impl {
     ($($ty:ty)+) => ($(
-        impl GonalNumberHelper for $ty {
-            fn is_triangular(&self) -> bool {
-                let n = 0.5*(((8.0*(*self) as f64) + 1.0).sqrt() - 1.0);
-                n.floor() == n
-            }
-
-            fn is_pentagonal(&self) -> bool {
-                let n = (1.0/6.0) * ((24.0 * ((*self) as f64) + 1.0).sqrt() + 1.0);
-
-                n.floor() == n
-            }
-
-            fn is_hexagonal(&self) -> bool {
-                let n = 0.25*(((8.0*(*self) as f64) + 1.0).sqrt() + 1.0);
-                n.floor() == n
+        impl PolygonalNumber for $ty {
+            fn calc_poly(&self, a: f64, b: f64, c: f64, d: f64) -> f64 {
+                (1.0/a) * ((b*(*self as f64) + c).sqrt() + d)
             }
         }
     )+)
 }
 
-gonal_number_helper_impl!(u8 i8 u16 i16 u32 i32 i64 u64 isize usize);
+polygonal_number_impl!(u8 i8 u16 i16 u32 i32 i64 u64 isize usize);
+
+macro_rules! test_polygonal {
+    ($($ident:ident [$($t:expr),*] [$($f:expr),*]),*) => {{
+        $(
+            $(
+                let v = $t;
+                println!("{} {}", v, stringify!($ident));
+                assert!(v.$ident());
+            )*
+
+            $(
+                let v = $f;
+                println!("{} !{}", v, stringify!($ident));
+                assert!(!v.$ident());
+            )*
+        )*
+    }}
+}
+
+#[test]
+fn test_polygonal_number() {
+    test_polygonal! {
+        is_triangular [1, 3, 6, 10, 15] [2, 5, 13, 5],
+        is_square     [1, 4, 9, 16, 25] [2, 3, 14, 24],
+        is_pentagonal [1, 5, 12, 22, 35] [2, 6, 13, 21],
+        is_hexagonal  [1, 6, 15, 28, 45] [2, 7, 16, 29, 40],
+        is_heptagonal [1, 7, 18, 34, 55, 540, 286] [2, 8, 19, 35, 300, 45],
+        is_octagonal  [1, 8, 21, 40, 65] [2, 9, 39, 60, 45]
+    }
+}
+
+#[test]
+fn test_heptagonal() {
+    let heptagonal = (1..10000)
+        .map(|n| n * (5*n - 3) / 2);
+
+    for i in heptagonal {
+        println!("Checking {}", i);
+        assert!(i.is_heptagonal());
+    }
+}
+
+#[deprecated]
+pub trait GonalNumberHelper: PolygonalNumber {}
