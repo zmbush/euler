@@ -35,12 +35,12 @@ impl PalindromeHelper for BigInt {
 
 pub trait DigitsHelper: Clone + Sized {
     fn digits(&self) -> (Vec<u8>, HashSet<u8>);
-    fn from_digits(&self, Vec<u8>) -> Self;
+    fn from_digits(Vec<u8>) -> Self;
 
     fn reverse(&self) -> Self {
         let (mut v, _) = self.digits();
         v.reverse();
-        self.from_digits(v)
+        Self::from_digits(v)
     }
 
     fn count_digits(&self) -> usize {
@@ -66,14 +66,14 @@ pub trait DigitsHelper: Clone + Sized {
 
     fn replace_all(&self, value: u8, with: u8) -> Self {
         let (mut va, _) = self.digits();
-        
+
         for i in 0..va.len() {
             if va[i] == value {
                 va[i] = with;
             }
         }
 
-        self.from_digits(va)
+        Self::from_digits(va)
     }
 }
 
@@ -97,7 +97,7 @@ macro_rules! digits_helper_impl {
                 (rv, rs)
             }
 
-            fn from_digits(&self, digits: Vec<u8>) -> $T {
+            fn from_digits(digits: Vec<u8>) -> $T {
                 digits.iter().fold(0, |r, &d| r*10 + d as $T)
             }
         }
@@ -125,7 +125,7 @@ impl DigitsHelper for BigInt {
         (rv, rs)
     }
 
-    fn from_digits(&self, digits: Vec<u8>) -> BigInt {
+    fn from_digits(digits: Vec<u8>) -> BigInt {
         let ten = 10.to_bigint().unwrap();
         digits.iter().fold(BigInt::zero(), |r, &d| r*(&ten) + d.to_bigint().unwrap())
     }
@@ -229,6 +229,3 @@ fn test_heptagonal() {
         assert!(i.is_heptagonal());
     }
 }
-
-#[deprecated]
-pub trait GonalNumberHelper: PolygonalNumber {}
