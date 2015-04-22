@@ -104,5 +104,31 @@ fn main() {
 
             count
         }
+
+        sol cheap {
+            let mut result = 0;
+
+            for n in 2..(max_n + 1) {
+                let limit = (n as f64).sqrt() as i64;
+                if limit*limit == n { continue; }
+
+                let mut period = 0;
+                let mut d = 1;
+                let mut m = 0;
+                let mut a = limit;
+
+                loop {
+                    m = d*a - m;
+                    d = (n - m * m) / d;
+                    a = (limit + m) / d;
+                    period += 1;
+                    if a == 2*limit { break; }
+                }
+
+                if period % 2 == 1 { result += 1; }
+            }
+
+            result
+        }
     }
 }
