@@ -11,6 +11,7 @@ use std::fmt::Debug;
 pub use getopts::Options;
 pub mod prime;
 pub mod traits;
+pub mod irrational;
 
 pub fn time_execution<F: Fn() -> R, R: Debug>(f: F) -> R {
     let start = time::precise_time_s();
