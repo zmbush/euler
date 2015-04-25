@@ -2,9 +2,15 @@
 name = "Euler solutions"
 version = "1.0.0"
 dependencies = [
+ "html5ever 0.0.0 (git+https://github.com/servo/html5ever)",
  "libeuler 0.0.1",
- "num 0.1.22 (registry+https://github.com/rust-lang/crates.io-index)",
+ "num 0.1.24 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
+
+[[package]]
+name = "debug-builders"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "gcc"
@@ -13,11 +19,40 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "getopts"
-version = "0.2.9"
+version = "0.2.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "log 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
+
+[[package]]
+name = "html5ever"
+version = "0.0.0"
+source = "git+https://github.com/servo/html5ever#74dc5f5a36451cfbe789488b20d51bef97c63898"
+dependencies = [
+ "html5ever_macros 0.0.0 (git+https://github.com/servo/html5ever)",
+ "log 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "mac 0.0.2 (git+https://github.com/reem/rust-mac)",
+ "phf 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "phf_macros 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "string_cache 0.0.0 (git+https://github.com/servo/string-cache)",
+ "string_cache_plugin 0.0.0 (git+https://github.com/servo/string-cache)",
+ "time 0.1.25 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "html5ever_macros"
+version = "0.0.0"
+source = "git+https://github.com/servo/html5ever#74dc5f5a36451cfbe789488b20d51bef97c63898"
+dependencies = [
+ "mac 0.0.2 (git+https://github.com/reem/rust-mac)",
+ "rustc-serialize 0.3.13 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "lazy_static"
+version = "0.1.10"
+source = "git+https://github.com/Kimundi/lazy-static.rs#1366fce0e706ee8530c88b80039946c4c7e1f993"
 
 [[package]]
 name = "libc"
@@ -28,9 +63,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 name = "libeuler"
 version = "0.0.1"
 dependencies = [
- "getopts 0.2.9 (registry+https://github.com/rust-lang/crates.io-index)",
- "num 0.1.22 (registry+https://github.com/rust-lang/crates.io-index)",
- "time 0.1.24 (registry+https://github.com/rust-lang/crates.io-index)",
+ "getopts 0.2.10 (registry+https://github.com/rust-lang/crates.io-index)",
+ "num 0.1.24 (registry+https://github.com/rust-lang/crates.io-index)",
+ "time 0.1.25 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -42,31 +77,88 @@ dependencies = [
 ]
 
 [[package]]
+name = "mac"
+version = "0.0.2"
+source = "git+https://github.com/reem/rust-mac#6316d3f4663756180fd236b126a84e245e978765"
+
+[[package]]
 name = "num"
-version = "0.1.22"
+version = "0.1.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
- "rand 0.3.7 (registry+https://github.com/rust-lang/crates.io-index)",
- "rustc-serialize 0.3.12 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rand 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rustc-serialize 0.3.13 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
+name = "phf"
+version = "0.7.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "debug-builders 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "phf_shared 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "phf_generator"
+version = "0.7.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "phf_shared 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rand 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "phf_macros"
+version = "0.7.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "phf_generator 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "phf_shared 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "phf_shared"
+version = "0.7.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
 name = "rand"
-version = "0.3.7"
+version = "0.3.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "libc 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
- "log 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "rustc-serialize"
-version = "0.3.12"
+version = "0.3.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
+name = "string_cache"
+version = "0.0.0"
+source = "git+https://github.com/servo/string-cache#385c4ac197742e355631209be3613c8a9c7594b6"
+dependencies = [
+ "lazy_static 0.1.10 (git+https://github.com/Kimundi/lazy-static.rs)",
+ "phf 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "phf_macros 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rand 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)",
+ "string_cache_plugin 0.0.0 (git+https://github.com/servo/string-cache)",
+]
+
+[[package]]
+name = "string_cache_plugin"
+version = "0.0.0"
+source = "git+https://github.com/servo/string-cache#385c4ac197742e355631209be3613c8a9c7594b6"
+dependencies = [
+ "lazy_static 0.1.10 (git+https://github.com/Kimundi/lazy-static.rs)",
+ "mac 0.0.2 (git+https://github.com/reem/rust-mac)",
+]
+
+[[package]]
 name = "time"
-version = "0.1.24"
+version = "0.1.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "gcc 0.3.4 (registry+https://github.com/rust-lang/crates.io-index)",
