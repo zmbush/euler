@@ -7,6 +7,18 @@ path = "libeuler"
 
 [dependencies]
 num = "*"
+hyper = "*"
 
+[dependencies.string_cache]
+git = "https://github.com/servo/string-cache"
+[dependencies.string_cache_plugin]
+git = "https://github.com/servo/string-cache"
 [dependencies.html5ever]
 git = "https://github.com/servo/html5ever"
+
+[[bin]]
+name = "euler"
+path = "src/main.rs"
+
+[profile.dev]
+debug = false
