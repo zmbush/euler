@@ -14,11 +14,9 @@
 /// find the numerator of the fraction immediately to the left of 3/7.
 fn main() {
     solutions! {
-        inputs: (max_denom: i64 = 1_000_000)
+        inputs: (max_denom: i64 = 1_000_000, target_top: i64 = 3, target_bot: i64 = 7)
 
         sol naive {
-            let target_top = 3i64;
-            let target_bot = 7;
             let mut best_top = 0;
             let mut best_bot = 1;
 
