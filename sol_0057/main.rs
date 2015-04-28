@@ -31,14 +31,13 @@ fn main() {
             let mut val = BigRational::new(BigInt::one(), BigInt::one() + BigInt::one());
             let mut count = 0;
 
-            for i in 1..expansions {
+            for _ in 1..expansions {
                 let a = BigRational::from_integer(BigInt::one()) + &val;
                 let (nd, _) = a.numer().digits();
                 let (dd, _) = a.denom().digits();
 
                 if nd.len() > dd.len() {
                     count += 1;
-                    println!("{}!", i);
                 }
 
                 val = (

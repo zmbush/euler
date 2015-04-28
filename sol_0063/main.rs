@@ -1,7 +1,6 @@
 #[macro_use] extern crate libeuler;
 extern crate num;
 
-use num::traits::PrimInt;
 use num::bigint::{BigInt, ToBigInt};
 /// The 5-digit number, 16807=7^5, is also a fifth power. Similarly, the 9-digit number,
 /// 134217728=8^9, is a ninth power.

@@ -1,9 +1,6 @@
-#![feature(core, step_by)]
+#![feature(step_by)]
 #[macro_use] extern crate libeuler;
 
-use std::collections::{HashSet, HashMap};
-
-use libeuler::prime::SieveOfAtkin;
 /// Consider the fraction, n/d, where n and d are positive integers. If n<d and HCF(n,d)=1, it is
 /// called a reduced proper fraction.
 ///
@@ -20,7 +17,6 @@ fn main() {
         inputs: (max_denom: u64 = 1_000_000)
 
         sol naive {
-            let sieve = SieveOfAtkin::new(max_denom * 2);
             let mut nums = (0..(max_denom+1)).collect::<Vec<u64>>();
 
             let mut result = 0;
@@ -37,33 +33,4 @@ fn main() {
             result
         }
     }
-}
-
-fn load_powers(memo: &mut HashMap<Vec<u64>, HashSet<u64>>, mut factors: Vec<u64>) -> HashSet<u64> {
-    if factors.len() == 0 {
-        return {
-            let mut ret = HashSet::new();
-            ret.insert(1);
-            ret
-        };
-    }
-
-    if memo.contains_key(&factors) {
-        return memo[&factors].clone();
-    }
-
-    let mut retval = HashSet::new();
-
-    let f = factors.clone();
-    while factors.len() > 0 {
-        let fact = factors.pop().unwrap();
-        for pow in load_powers(memo, factors.clone()) {
-            retval.insert(pow);
-            retval.insert(pow * fact);
-        }
-    }
-
-    memo.insert(f, retval.clone());
-
-    retval
 }

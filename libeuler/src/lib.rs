@@ -90,3 +90,28 @@ macro_rules! solutions {
         )+
     }};
 }
+
+#[macro_export]
+macro_rules! hash_map {
+    ($($key:expr => $val:expr),*) => {{
+        let mut ret = ::std::collections::HashMap::new();
+        $(ret.insert($key, $val);)*
+        ret
+    }};
+
+    ($old:ident, { $($key:expr => $val:expr),* } ) => {{
+        $($old.insert($key, $value);)*
+    }};
+}
+
+#[macro_export]
+macro_rules! sparse_array {
+    ($size:expr, $($key:expr => $val:expr),+) => {{
+        let mut array = Vec::with_capacity($size);
+        for _ in 0..$size {
+            array.push(0);
+        }
+        $(array[$key] = $val;)+
+        array
+    }};
+}

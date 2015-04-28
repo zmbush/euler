@@ -20,6 +20,7 @@ if [ "$command" = "run" ]; then
     shift
     cargo run --bin sol_$solution -- $@
   else
+    cargo build --release
     for f in sol_*; do
       cargo run --release --bin $f -- $@
     done
