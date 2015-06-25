@@ -1,5 +1,5 @@
 #![feature(
-    collections,
+    vec_resize,
     step_by
 )]
 

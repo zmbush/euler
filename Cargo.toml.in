@@ -6,15 +6,12 @@ version = "1.0.0"
 path = "libeuler"
 
 [dependencies]
-num = "*"
+html5ever = "*"
+html5ever_dom_sink = "*"
 hyper = "*"
-
-[dependencies.string_cache]
-git = "https://github.com/servo/string-cache"
-[dependencies.string_cache_plugin]
-git = "https://github.com/servo/string-cache"
-[dependencies.html5ever]
-git = "https://github.com/servo/html5ever"
+num = "*"
+string_cache = "*"
+string_cache_plugin = "*"
 
 [[bin]]
 name = "euler"

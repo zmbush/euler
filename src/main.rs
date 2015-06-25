@@ -2,6 +2,7 @@
 #![plugin(string_cache_plugin)]
 
 extern crate html5ever;
+extern crate html5ever_dom_sink;
 extern crate hyper;
 #[macro_use] extern crate string_cache;
 
@@ -13,8 +14,8 @@ use std::path::Path;
 
 use hyper::Client;
 
-use html5ever::sink::common::{Text, Element};
-use html5ever::sink::rcdom::{RcDom, Handle};
+use html5ever_dom_sink::common::{Text, Element};
+use html5ever_dom_sink::rcdom::{RcDom, Handle};
 use html5ever::{parse, one_input};
 
 fn getdom(input: String) -> RcDom {
@@ -110,7 +111,7 @@ fn main() {
         }
     }
 
-    client.get(format!("{}{}", BASE, problem).as_ref())
+    client.get(&format!("{}{}", BASE, problem))
         .send().unwrap()
         .read_to_string(&mut result).unwrap();
 
