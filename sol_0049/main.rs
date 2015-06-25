@@ -1,4 +1,4 @@
-#![feature(collections)]
+#![feature(permutations)]
 #[macro_use] extern crate libeuler;
 
 use libeuler::prime::SieveOfAtkin;

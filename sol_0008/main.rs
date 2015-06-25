@@ -1,4 +1,4 @@
-#![feature(core)]
+#![feature(iter_arith)]
 #[macro_use] extern crate libeuler;
 
 /// The four adjacent digits in the 1000-digit number that have the greatest product are

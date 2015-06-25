@@ -1,4 +1,4 @@
-#![feature(core)]
+#![feature(iter_arith)]
 #[macro_use] extern crate libeuler;
 
 // Using names.txt (right click and 'Save Link/Target As...'), a 46K text file containing over

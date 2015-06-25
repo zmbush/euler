@@ -1,4 +1,4 @@
-#![feature(core)]
+#![feature(iter_arith)]
 #[macro_use] extern crate libeuler;
 
 use std::collections::HashSet;

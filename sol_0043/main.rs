@@ -1,4 +1,4 @@
-#![feature(collections, core)]
+#![feature(iter_arith, permutations)]
 #[macro_use] extern crate libeuler;
 
 /// The number, 1406357289, is a 0 to 9 pandigital number because it is made up of each of the

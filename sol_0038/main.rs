@@ -1,4 +1,4 @@
-#![feature(collections)]
+#![feature(append)]
 #[macro_use] extern crate libeuler;
 
 use libeuler::traits::DigitsHelper;

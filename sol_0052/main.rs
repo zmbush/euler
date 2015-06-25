@@ -1,4 +1,4 @@
-#![feature(core)]
+#![feature(range_inclusive)]
 #[macro_use] extern crate libeuler;
 
 use libeuler::traits::DigitsHelper;

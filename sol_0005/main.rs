@@ -1,4 +1,4 @@
-#![feature(core, collections)]
+#![feature(slice_position_elem, iter_arith)]
 #[macro_use] extern crate libeuler;
 
 /// 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
